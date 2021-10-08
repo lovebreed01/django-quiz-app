@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Thanks for taking the quiz {{request.user}}</h1>
+<p>Below is your result. You might want to take  the quiz again by clicking the blue botton below or go back to homepage</p>
+  <div >
+    You had a quiz in {{category.name}} and below are your results
+    <div id="questions">
+    <b>correct - {{correct}}</b><br>
+    <b>wrong - {{wrong}}</b><br>
+    <b>score - {{score}}</b><br>
+
+    <a href="{% url 'questions_detail' category.pk %}">Answer quiz again</a>
+  </div>
+{% endblock content %}
+{% block scripts %}
+  <script>
+   
+  </script>
+{% endblock scripts %}

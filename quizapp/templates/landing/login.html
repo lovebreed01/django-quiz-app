@@ -1,0 +1,12 @@
+{% extends 'landing/base.html' %}
+
+{% block content %}
+ <form action="" method="POST">
+     {% csrf_token %}
+    {{form}}
+    <button type="submit">submit</button>
+</form>
+{% endblock content %}
+{% block scripts %}
+  
+{% endblock scripts %}

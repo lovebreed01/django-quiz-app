@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {{category.name}}
+    
+   <div class="count"> 
+     <div class="counter"></div>
+     <div>/{{questions.count}}</div></div>
+    <div class="questions">
+      <div id="innav">
+        <div class="navs">
+          <button id="previous">Previous</button>
+          <button id="next">Next </button>
+        </div>
+      </div>
+        <form action="#" method="POST">
+          {% csrf_token %}
+          {% for q in questions %}
+          <div class="main-question">
+            
+            <p class="question">{{q.question_text | upper}}? 
+            </p>
+            {% for choice in q.choice_set.all %}
+            <div class="ans">
+              <input class="answer" value="{{choice.data}}" type="radio" name="{{q.question_text}}" id="">
+              <label for="{{q.question_text}}">{{choice.data}}</label>
+            </div>
+              {% endfor %}
+          </div>
+          {% endfor %}
+          <button id="submitBtn" type="submit">SUBMIT ANSWERS</button>
+          
+        </form>
+        
+          
+        
+    </div>
+    
+  {% endblock content %}
+{% block scripts %}
+  <script>
+    function changeQuestion(){
+
+      // global variables declared
+      var counter = 0
+      const innerCounter = document.querySelector('.counter')
+      const questions = document.querySelectorAll('.main-question')
+      const subBtn = document.getElementById('submitBtn')
+      const prevBtn = document.getElementById('previous');
+      const nextBtn = document.getElementById('next');
+
+      //  Loops through all question element to hide all and show the one its index matches the of counter variable
+
+      for(let i = 0; i<questions.length; i++){
+        if (counter == i ){
+          questions[i].style.display = 'flex'
+         }else{
+          questions[i].style.display = 'none'
+        }
+      }
+      innerCounter.innerHTML=`Question ${counter + 1}`
+
+      prevBtn.onclick = function(){
+        counter--
+        if (counter <= 0){
+          counter = 0;
+        }else{
+          counter--
+        }
+        for(let i = 0; i<questions.length; i++){
+        if (counter == i ){
+          questions[i].style.display = 'flex'
+         }else{
+          questions[i].style.display = 'none'
+        }
+      }
+      innerCounter.innerHTML=`Question ${counter + 1}`
+      }
+      nextBtn.onclick = function(){
+        if(counter == questions.length - 1){
+          counter = questions.length - 1 ;
+         
+        }
+        else{
+          counter ++;
+
+        }
+        for(let i = 0; i<questions.length; i++){
+        if (counter == i ){
+          questions[i].style.display = 'flex'
+         }else{
+          questions[i].style.display = 'none'
+        }
+      }
+      innerCounter.innerHTML=`Question ${counter + 1}`
+ 
+      }
+      
+
+    }
+
+      
+    
+   window.onload = function(){
+     changeQuestion()
+   }
+  </script>
+{% endblock scripts %}

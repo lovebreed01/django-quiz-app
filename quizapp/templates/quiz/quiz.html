@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1 id="welcome">Welcome {{request.user}} !</h1>
+<p id="instructions"><strong>Take a quiz in one of the following categories below to test you knowledge <br> <p id="other"><strong id="note">Note :</strong> Each category contains 10 questions each and each question has four options to choose from</p></strong></p>
+<div class="quizes">
+    {% for category in categories %}
+    <a class="quiz" href="{% url 'questions_detail' category.pk %}">{{category.name}}
+    </a>
+{% endfor %}
+</div>
+
+{% endblock content %}
+

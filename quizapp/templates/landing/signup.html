@@ -1,0 +1,15 @@
+{% extends 'landing/base.html' %}
+{% block content %}
+<p class="form">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{signupform}}
+       <br>
+       <button type="submit">submit</button>
+   </form>
+</p>
+ 
+{% endblock content %}
+{% block scripts %}
+  
+{% endblock scripts %}
